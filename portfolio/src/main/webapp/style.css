@@ -1,9 +1,40 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+/* Ensure proper box sizing */
+* {
+  box-sizing: border-box;
 }
 
-#greeting-container {
-  margin-top: 20px;
+/* Header properties */
+.header {
+  padding: 60px;
+  text-align: center;
+  background: #4a6e6e;
+  color: white;
+}
+
+/* Row container properties */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Sidebar column properties */
+.sidebar {
+  flex: 30%;
+  background-color: #87abab;
+  padding: 20px;
+}
+
+/* Main column properties*/
+.maincontent {
+  flex: 70%;
+  background-color: #d2e0e0;
+  padding: 20px;
+}
+
+/* Footer properties*/
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #4a6e6e;
+  color:white;
 }
