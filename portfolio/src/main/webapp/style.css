@@ -11,6 +11,11 @@
   color: white;
 }
 
+#profile-image {
+    width:400px;
+    height:260px;
+}
+
 /* Row container properties */
 .row {
   display: flex;
