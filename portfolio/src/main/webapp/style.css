@@ -3,6 +3,14 @@
   box-sizing: border-box;
 }
 
+/* Set properties for a proper centering */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 /* Header properties */
 .header {
   padding: 60px;
@@ -11,9 +19,18 @@
   color: white;
 }
 
+#black-bar {
+  height:50px;
+  background:black
+}
+
 #profile-image {
     width:400px;
     height:260px;
+}
+
+ul {
+    font-size:large;
 }
 
 /* Row container properties */
