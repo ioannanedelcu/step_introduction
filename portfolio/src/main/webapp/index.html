@@ -1,18 +1,53 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
+
   <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+    <div class="header">
+      <div style="border-style:outset;">
+        <h1>Hi! I am Ioana!</h1>
+          <p>This is my portofolio.<br>
+            Check out my work and hobbies below and feel
+            free to get in touch if you want to know me better.
+      </div>
+    </div>
+
+    <!-- Add a black line for separation -->
+    <!-- <hr style="height:40px; background:black"> -->
+
+    <div class="row">
+      <div class="sidebar">
+        <h1>About Me</h1>
+        <img src="/images/myimage.jpg" alt="Profile image" id="profile-image">
+        <!-- Add some random text to see how it looks like -->
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+      </div>
+
+      <div class="maincontent">
+        <!-- Add some random text to see how it looks like -->
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+        <p>Some text about me ....</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <h3>Contact</h3>
+      <!-- TODO: Add github and linkedIn account -->
     </div>
   </body>
+
 </html>
