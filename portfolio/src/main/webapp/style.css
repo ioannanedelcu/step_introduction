@@ -53,6 +53,21 @@ ul {
   padding: 20px;
 }
 
+#quote-section {
+  background:black;
+  padding:15px;
+}
+
+#quote-image {
+  width:600px;
+  height:200px;
+}
+
+#quote-text {
+  color:white;
+  font-size:large
+}
+
 /* Footer properties*/
 .footer {
   padding: 20px;
