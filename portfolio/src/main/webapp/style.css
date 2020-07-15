@@ -68,6 +68,31 @@ ul {
   font-size:large
 }
 
+#career-image {
+  width:350x;
+  height:225px;
+  float:right;
+  padding:20px;
+}
+
+#mountain-image {
+  width:650x;
+  height:375px;
+  padding:20px;
+}
+
+#section1, #section3 {
+    background:white; 
+    color:black;
+    padding:20px;
+}
+
+#section2 {
+    background:black; 
+    color:white;
+    padding:20px;
+}
+
 /* Footer properties*/
 .footer {
   padding: 20px;
