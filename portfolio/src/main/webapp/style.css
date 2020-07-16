@@ -1,3 +1,10 @@
+/* Define varibles for colors */
+:root {
+  --dark-turquoise: #4a6e6e;
+  --light-turquoise: #87abab;
+  --very-light-tuquoise: #d2e0e0;
+}
+
 /* Ensure proper box sizing */
 * {
   box-sizing: border-box;
@@ -15,7 +22,7 @@
 .header {
   padding: 60px;
   text-align: center;
-  background: #4a6e6e;
+  background: var(--dark-turquoise);
   color: white;
 }
 
@@ -46,14 +53,14 @@ ul {
 /* Sidebar column properties */
 .sidebar {
   flex: 30%;
-  background-color: #87abab;
+  background-color: var(--light-turquoise);
   padding: 20px;
 }
 
 /* Main column properties*/
 .maincontent {
   flex: 70%;
-  background-color: #d2e0e0;
+  background-color: var(--very-light-tuquoise);
   padding: 20px;
 }
 
@@ -123,21 +130,21 @@ ul {
   border: none;
   outline: none;
   padding: 10px 16px;
-  background-color: #4a6e6e;
+  background-color: var(--dark-turquoise);
   color: white;
   cursor: pointer;
   font-size: 18px;
 }
 
 .btn:hover {
-  background-color: #87abab;
+  background-color: var(--light-turquoise);
 }
 
 /* Footer properties*/
 .footer {
   padding: 20px;
   text-align: center;
-  background: #4a6e6e;
+  background: var(--dark-turquoise);
   color: white;
 }
 

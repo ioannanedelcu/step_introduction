@@ -1,27 +1,21 @@
-// Get the pictures in the grid in pictures variable
-var pictures = document.getElementsByClassName("grid-column");
-var i; // contor
+// Copyright 2020 Google LLC
 
-// One column images view
-function one() {
-  for (i = 0; i < pictures.length; i++) {
-    pictures[i].style.msFlex = "100%";
-    pictures[i].style.flex = "100%";
-  }
-}
+function change_grid_columns_number(columns_number) {
+    var flex_value;
+    var pictures = document.getElementsByClassName("grid-column");
 
-// Two columns images view
-function two() {
-  for (i = 0; i < pictures.length; i++) {
-    pictures[i].style.msFlex = "50%";
-    pictures[i].style.flex = "50%";
-  }
-}
+    if (columns_number === 1) {
+      flex_value = "100%";
+    } else {
+      if (columns_number === 2) {
+        flex_value = "50%";
+      } else {
+        flex_value = "25%";
+      }
+    }
 
-// Four columns images view
-function four() {
-  for (i = 0; i < pictures.length; i++) {
-    pictures[i].style.msFlex = "25%";
-    pictures[i].style.flex = "25%";
+    for (var i = 0; i < pictures.length; i++) {
+        pictures[i].style.msFlex = flex_value;
+        pictures[i].style.flex = flex_value;
   }
 }
