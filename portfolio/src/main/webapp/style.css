@@ -19,18 +19,22 @@
   color: white;
 }
 
+#header-border {
+    border-style: outset;
+}
+
 #black-bar {
-  height:50px;
-  background:black
+  height: 50px;
+  background: black
 }
 
 #profile-image {
-    width:400px;
-    height:260px;
+    width: 400px;
+    height: 260px;
 }
 
 ul {
-    font-size:large;
+    font-size: large;
 }
 
 /* Row container properties */
@@ -54,43 +58,43 @@ ul {
 }
 
 #quote-section {
-  background:black;
-  padding:15px;
+  background: black;
+  padding: 15px;
 }
 
 #quote-image {
-  width:600px;
-  height:200px;
+  width: 600px;
+  height: 200px;
 }
 
 #quote-text {
-  color:white;
-  font-size:large
+  color: white;
+  font-size: large
 }
 
 #career-image {
-  width:350x;
-  height:225px;
-  float:right;
-  padding:20px;
+  width: 350x;
+  height: 225px;
+  float: right;
+  padding: 20px;
 }
 
 #mountain-image {
-  width:650x;
-  height:375px;
-  padding:20px;
+  width: 650x;
+  height: 375px;
+  padding: 20px;
 }
 
 #section1, #section3 {
-    background:white; 
-    color:black;
-    padding:20px;
+    background: white; 
+    color: black;
+    padding: 20px;
 }
 
 #section2 {
-    background:black; 
-    color:white;
-    padding:20px;
+    background: black; 
+    color: white;
+    padding: 20px;
 }
 
 .grid-row {
@@ -110,10 +114,24 @@ ul {
   vertical-align: middle;
 }
 
+.gird-img {
+  width: 100%;
+}
+
 /* Footer properties*/
 .footer {
   padding: 20px;
   text-align: center;
   background: #4a6e6e;
-  color:white;
+  color: white;
+}
+
+#git-image {
+  height: 50px;
+  width: 150px
+}
+
+#linkedin-image {
+  height: 50px;
+  width: 230px;
 }
