@@ -3,6 +3,14 @@
   box-sizing: border-box;
 }
 
+/* Set properties for a proper centering */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 /* Header properties */
 .header {
   padding: 60px;
@@ -11,9 +19,22 @@
   color: white;
 }
 
+#header-border {
+    border-style: outset;
+}
+
+#black-bar {
+  height: 50px;
+  background: black
+}
+
 #profile-image {
-    width:400px;
-    height:260px;
+    width: 400px;
+    height: 260px;
+}
+
+ul {
+    font-size: large;
 }
 
 /* Row container properties */
@@ -36,10 +57,81 @@
   padding: 20px;
 }
 
+#quote-section {
+  background: black;
+  padding: 15px;
+}
+
+#quote-image {
+  width: 600px;
+  height: 200px;
+}
+
+#quote-text {
+  color: white;
+  font-size: large
+}
+
+#career-image {
+  width: 350x;
+  height: 225px;
+  float: right;
+  padding: 20px;
+}
+
+#mountain-image {
+  width: 650x;
+  height: 375px;
+  padding: 20px;
+}
+
+#section1, #section3 {
+    background: white; 
+    color: black;
+    padding: 20px;
+}
+
+#section2 {
+    background: black; 
+    color: white;
+    padding: 20px;
+}
+
+.grid-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create two equal columns that sits next to each other */
+.grid-column {
+  flex: 50%;
+  padding: 0 4px;
+}
+
+.grid-column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+.grid-image {
+  width: 100%;
+}
+
 /* Footer properties*/
 .footer {
   padding: 20px;
   text-align: center;
   background: #4a6e6e;
-  color:white;
+  color: white;
+}
+
+#git-image {
+  height: 50px;
+  width: 150px
+}
+
+#linkedin-image {
+  height: 50px;
+  width: 230px;
 }
