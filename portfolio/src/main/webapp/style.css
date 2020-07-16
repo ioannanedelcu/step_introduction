@@ -118,6 +118,21 @@ ul {
   width: 100%;
 }
 
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #4a6e6e;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn:hover {
+  background-color: #87abab;
+}
+
 /* Footer properties*/
 .footer {
   padding: 20px;
