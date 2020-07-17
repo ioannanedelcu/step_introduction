@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,17 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function change_grid_columns_number(columns_number) {
+    var flex_value;
+    var pictures = document.getElementsByClassName("grid-column");
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+    if (columns_number === 1) {
+      flex_value = "100%";
+    } else {
+      if (columns_number === 2) {
+        flex_value = "50%";
+      } else {
+        flex_value = "25%";
+      }
+    }
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+    for (var i = 0; i < pictures.length; i++) {
+        pictures[i].style.msFlex = flex_value;
+        pictures[i].style.flex = flex_value;
+  }
 }
