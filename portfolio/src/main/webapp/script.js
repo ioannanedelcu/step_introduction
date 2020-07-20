@@ -32,3 +32,12 @@ function changeGridColumnsNumber(columns_number) {
   }
 }
 
+/*
+ Fetches a random text from the server and adds it to the DOM
+ using async and await
+ */
+async function getRandomTextFromServer() {
+  const response = await fetch('/data');
+  const text = await response.text();
+  document.getElementById('container').innerText = text;
+}
