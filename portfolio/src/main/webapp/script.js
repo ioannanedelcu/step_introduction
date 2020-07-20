@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function change_grid_columns_number(columns_number) {
+function changeGridColumnsNumber(columns_number) {
     var flex_value;
     var pictures = document.getElementsByClassName("grid-column");
 
@@ -31,3 +31,4 @@ function change_grid_columns_number(columns_number) {
         pictures[i].style.flex = flex_value;
   }
 }
+

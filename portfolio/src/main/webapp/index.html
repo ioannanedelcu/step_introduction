@@ -19,8 +19,12 @@
       </div>
     </div>
 
-    <!-- Add a black line for separation -->
-    <hr id="black-bar">
+    <!-- Add a black bar for navigation -->
+    <div id="black-bar">
+      <a href="#comments-section">
+          <button>Go to COMMENTS SECTION</button>
+      </a>
+    </div>
 
     <div class="row">
       <div class="sidebar">
@@ -138,9 +142,9 @@
           <p>Below you can see a short gallery with my best shots
           <div>
             <i>Click on the buttons to change the grid view.</i>
-            <button class="btn" onclick="change_grid_columns_number(1)">1</button>
-            <button class="btn" onclick="change_grid_columns_number(2)">2</button>
-            <button class="btn" onclick="change_grid_columns_number(4)">4</button>
+            <button class="btn" onclick="changeGridColumnsNumber(1)">1</button>
+            <button class="btn" onclick="changeGridColumnsNumber(2)">2</button>
+            <button class="btn" onclick="changeGridColumnsNumber(4)">4</button>
           </div>
           <div class="grid-row">
             <div class="grid-column">
@@ -171,7 +175,14 @@
         </div>
       </div>
     </div>
-    
+
+    <div id="comments-section">
+      <h1>Comments section</h1>
+      <p>Click here to see a random text:</p>
+      <button onclick="getRandomTextFromServer()">Do some magic!</button>
+      <div id="container"></div>
+    </div>
+
     <div class="footer">
       <a href="https://github.com/ioannanedelcu">
         <img src="images/github.jpg" alt="GitHub" id="git-image">
