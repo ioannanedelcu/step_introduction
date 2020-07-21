@@ -32,12 +32,25 @@ function changeGridColumnsNumber(columns_number) {
   }
 }
 
-/*
- Fetches a random text from the server and adds it to the DOM
- using async and await
+/**
+ * Fetches stats from the servers and adds them to the DOM.
  */
-async function getRandomTextFromServer() {
-  const response = await fetch('/data');
-  const text = await response.text();
-  document.getElementById('container').innerText = text;
+function getFacts() {
+  fetch('/data').then(response => response.json()).then((facts) => {
+    const factsListElement = document.getElementById('container');
+    factsListElement.innerHTML = '';
+    factsListElement.appendChild(
+        createListElement('Food: ' + facts.food));
+    factsListElement.appendChild(
+        createListElement('Book: ' + facts.book));
+    factsListElement.appendChild(
+        createListElement('Activity: ' + facts.activity));
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }

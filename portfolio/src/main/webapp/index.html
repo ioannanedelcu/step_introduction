@@ -178,8 +178,12 @@
 
     <div id="comments-section">
       <h1>Comments section</h1>
-      <p>Click here to see a random text:</p>
-      <button onclick="getRandomTextFromServer()">Do some magic!</button>
+      <form action="/data" method="POST">
+        <p>Add your comment here:</p>
+        <textarea name="text-input" rows="4" cols="70"></textarea>
+        <br/><br/>
+        <input type="submit" />
+      </form>
       <div id="container"></div>
     </div>
 
