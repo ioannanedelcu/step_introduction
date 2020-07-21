@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,6 +14,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.util.*;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -23,33 +26,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
-
-  private ArrayList<String> comments;
-
-  @Override
-  public void init() {
-    comments = new ArrayList<String>(); 
-}
-
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJsonUsingGson(comments);
-
-    // Send the JSON as the response
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-  }
+/** Servlet responsible for storing comments */ 
+@WebServlet("/post-comment")
+public class PostCommentServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String comment = getParameter(request, "text-input", "");
-    comments.add(comment);
+    String comment = getParameter(request, "text-input", "No comment");
 
-    // Redirect back to the HTML page.
+    // Store the comments as entities
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", comment);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
+    // Redirect back to the HTML page - comments section.
     response.sendRedirect("/index.html#comments-section");
   }
 
@@ -63,12 +56,5 @@ public class DataServlet extends HttpServlet {
       return defaultValue;
     }
     return value;
-  }
-
-  private String convertToJsonUsingGson(ArrayList<String> list) {
-    String json = "";
-    Gson gson = new Gson();
-    json = gson.toJson(list);
-    return json;
   }
 }

@@ -27,7 +27,7 @@
 }
 
 #header-border {
-    border-style: outset;
+  border-style: outset;
 }
 
 #black-bar {
@@ -94,9 +94,9 @@ ul {
 }
 
 #section1, #section3 {
-    background: white; 
-    color: black;
-    padding: 20px;
+  background: white; 
+  color: black;
+  padding: 20px;
 }
 
 #section2 {
@@ -168,6 +168,6 @@ ul {
 
 #container {
   padding: 10px;
-  font-size: large;
+  text-align: left;
   font-style: italic;
 }

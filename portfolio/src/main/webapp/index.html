@@ -9,7 +9,7 @@
     <script src="script.js"></script>
   </head>
 
-  <body>
+  <body onload="loadComments()">
     <div class="header">
       <div id="header-border">
         <h1>Hi! I am Ioana!</h1>
@@ -160,16 +160,16 @@
               <img src="images/flower2.jpg" alt="Pink flower" class="grid-image">
             </div>
             <div class="grid-column">
-              <img src="images/praga.jpg" alt="Praga" class="grid-image">
-              <img src="images/monkey.jpg" alt="Sunset" class="grid-image">
               <img src="images/sunset.jpg" alt="Sunset" class="grid-image">
-              <img src="images/city.jpg" alt="Praga" class="grid-image">
+              <img src="images/praga.jpg" alt="Praga" class="grid-image">
+              <img src="images/monkey.jpg" alt="Monkey" class="grid-image">
+              <img src="images/city.jpg" alt="City" class="grid-image">
             </div>
             <div class="grid-column">
-              <img src="images/flower2.jpg" alt="Pink flower" class="grid-image">
-              <img src="images/camera.jpg" alt="Camera" class="grid-image">
               <img src="images/bird.jpg" alt="Bird" class="grid-image">
-              <img src="images/flower.jpg" alt="Pink flower" class="grid-image">
+              <img src="images/camera.jpg" alt="Camera" class="grid-image">
+              <img src="images/flower2.jpg" alt="Pink flower" class="grid-image">
+              <img src="images/flower.jpg" alt="White flower" class="grid-image">
             </div>
           </div>
         </div>
@@ -178,13 +178,15 @@
 
     <div id="comments-section">
       <h1>Comments section</h1>
-      <form action="/data" method="POST">
+      <form action="/post-comment" method="POST">
         <p>Add your comment here:</p>
         <textarea name="text-input" rows="4" cols="70"></textarea>
         <br/><br/>
         <input type="submit" />
       </form>
-      <div id="container"></div>
+      <div id="container">
+        <h3>Other people comments:</h3>
+      </div>
     </div>
 
     <div class="footer">

@@ -32,25 +32,32 @@ function changeGridColumnsNumber(columns_number) {
   }
 }
 
-/**
- * Fetches stats from the servers and adds them to the DOM.
- */
-function getFacts() {
-  fetch('/data').then(response => response.json()).then((facts) => {
-    const factsListElement = document.getElementById('container');
-    factsListElement.innerHTML = '';
-    factsListElement.appendChild(
-        createListElement('Food: ' + facts.food));
-    factsListElement.appendChild(
-        createListElement('Book: ' + facts.book));
-    factsListElement.appendChild(
-        createListElement('Activity: ' + facts.activity));
+/** Fetches comments from the server and adds them to the DOM. */
+function loadComments() {
+  fetch('/list-comments').then(response => response.json()).then((comments) => {
+    const commentsContainer = document.getElementById('container');
+    comments.forEach((comment) => {
+      commentsContainer.appendChild(createCommentElement(comment));
+    })
   });
 }
 
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+/** Creates an element that represents a comment. */
+function createCommentElement(comment) {
+  const commentElement = document.createElement('div');
+  commentElement.className = 'comment-box';
+
+  const textElement = document.createElement('span');
+  textElement.innerText = comment.text;
+  
+  // Create a separation bar after a comment
+  const separationBar = document.createElement('hr');
+
+  // Add text and bar to the comment element
+  commentElement.appendChild(textElement);
+  commentElement.appendChild(separationBar);
+
+  return commentElement;
 }
+
+
