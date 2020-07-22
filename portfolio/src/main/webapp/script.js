@@ -34,8 +34,12 @@ function changeGridColumnsNumber(columns_number) {
 
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
-  fetch('/list-comments').then(response => response.json()).then((comments) => {
+  var commentsNumber = document.getElementById("select-number").value;
+  var url = `list-comments?commentsNumber=${commentsNumber}`;
+
+  fetch(url).then(response => response.json()).then((comments) => {
     const commentsContainer = document.getElementById('container');
+    commentsContainer.innerHTML = "";
     comments.forEach((comment) => {
       commentsContainer.appendChild(createCommentElement(comment));
     })
@@ -60,4 +64,10 @@ function createCommentElement(comment) {
   return commentElement;
 }
 
+/** Tells the server to delete all comments. */
+function deleteAllComments() {
+  fetch('/delete-comments', {method: 'POST'});
 
+  const commentsContainer = document.getElementById('container');
+  commentsContainer.innerHTML = "No comments available";
+}

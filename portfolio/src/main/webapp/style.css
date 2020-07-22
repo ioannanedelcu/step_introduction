@@ -166,8 +166,11 @@ ul {
   color: white;
 }
 
+#previous-comments {
+  text-align: left;
+}
+
 #container {
   padding: 10px;
   text-align: left;
-  font-style: italic;
 }
