@@ -9,7 +9,7 @@
     <script src="script.js"></script>
   </head>
 
-  <body>
+  <body onload="loadComments()">
     <div class="header">
       <div id="header-border">
         <h1>Hi! I am Ioana!</h1>
@@ -19,8 +19,12 @@
       </div>
     </div>
 
-    <!-- Add a black line for separation -->
-    <hr id="black-bar">
+    <!-- Add a black bar for navigation -->
+    <div id="black-bar">
+      <a href="#comments-section">
+          <button>Go to COMMENTS SECTION</button>
+      </a>
+    </div>
 
     <div class="row">
       <div class="sidebar">
@@ -138,9 +142,9 @@
           <p>Below you can see a short gallery with my best shots
           <div>
             <i>Click on the buttons to change the grid view.</i>
-            <button class="btn" onclick="change_grid_columns_number(1)">1</button>
-            <button class="btn" onclick="change_grid_columns_number(2)">2</button>
-            <button class="btn" onclick="change_grid_columns_number(4)">4</button>
+            <button class="btn" onclick="changeGridColumnsNumber(1)">1</button>
+            <button class="btn" onclick="changeGridColumnsNumber(2)">2</button>
+            <button class="btn" onclick="changeGridColumnsNumber(4)">4</button>
           </div>
           <div class="grid-row">
             <div class="grid-column">
@@ -156,22 +160,35 @@
               <img src="images/flower2.jpg" alt="Pink flower" class="grid-image">
             </div>
             <div class="grid-column">
-              <img src="images/praga.jpg" alt="Praga" class="grid-image">
-              <img src="images/monkey.jpg" alt="Sunset" class="grid-image">
               <img src="images/sunset.jpg" alt="Sunset" class="grid-image">
-              <img src="images/city.jpg" alt="Praga" class="grid-image">
+              <img src="images/praga.jpg" alt="Praga" class="grid-image">
+              <img src="images/monkey.jpg" alt="Monkey" class="grid-image">
+              <img src="images/city.jpg" alt="City" class="grid-image">
             </div>
             <div class="grid-column">
-              <img src="images/flower2.jpg" alt="Pink flower" class="grid-image">
-              <img src="images/camera.jpg" alt="Camera" class="grid-image">
               <img src="images/bird.jpg" alt="Bird" class="grid-image">
-              <img src="images/flower.jpg" alt="Pink flower" class="grid-image">
+              <img src="images/camera.jpg" alt="Camera" class="grid-image">
+              <img src="images/flower2.jpg" alt="Pink flower" class="grid-image">
+              <img src="images/flower.jpg" alt="White flower" class="grid-image">
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+
+    <div id="comments-section">
+      <h1>Comments section</h1>
+      <form action="/post-comment" method="POST">
+        <p>Add your comment here:</p>
+        <textarea name="text-input" rows="4" cols="70"></textarea>
+        <br/><br/>
+        <input type="submit"/>
+      </form>
+      <div id="container">
+        <h3>Other people comments:</h3>
+      </div>
+    </div>
+
     <div class="footer">
       <a href="https://github.com/ioannanedelcu">
         <img src="images/github.jpg" alt="GitHub" id="git-image">

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function change_grid_columns_number(columns_number) {
+function changeGridColumnsNumber(columns_number) {
     var flex_value;
     var pictures = document.getElementsByClassName("grid-column");
 
@@ -31,3 +31,33 @@ function change_grid_columns_number(columns_number) {
         pictures[i].style.flex = flex_value;
   }
 }
+
+/** Fetches comments from the server and adds them to the DOM. */
+function loadComments() {
+  fetch('/list-comments').then(response => response.json()).then((comments) => {
+    const commentsContainer = document.getElementById('container');
+    comments.forEach((comment) => {
+      commentsContainer.appendChild(createCommentElement(comment));
+    })
+  });
+}
+
+/** Creates an element that represents a comment. */
+function createCommentElement(comment) {
+  const commentElement = document.createElement('div');
+  commentElement.className = 'comment-box';
+
+  const textElement = document.createElement('span');
+  textElement.innerText = comment.text;
+  
+  // Create a separation bar after a comment.
+  const separationBar = document.createElement('hr');
+
+  // Add text and bar to the comment element.
+  commentElement.appendChild(textElement);
+  commentElement.appendChild(separationBar);
+
+  return commentElement;
+}
+
+
