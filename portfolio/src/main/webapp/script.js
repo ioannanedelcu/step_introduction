@@ -50,10 +50,10 @@ function createCommentElement(comment) {
   const textElement = document.createElement('span');
   textElement.innerText = comment.text;
   
-  // Create a separation bar after a comment
+  // Create a separation bar after a comment.
   const separationBar = document.createElement('hr');
 
-  // Add text and bar to the comment element
+  // Add text and bar to the comment element.
   commentElement.appendChild(textElement);
   commentElement.appendChild(separationBar);
 

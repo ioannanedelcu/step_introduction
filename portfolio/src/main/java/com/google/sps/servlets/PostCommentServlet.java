@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-/** Servlet responsible for storing comments */ 
+/** Responsible for storing comments. */ 
 @WebServlet("/post-comment")
 public class PostCommentServlet extends HttpServlet {
 
@@ -35,7 +35,7 @@ public class PostCommentServlet extends HttpServlet {
     // Get the input from the form.
     String comment = getParameter(request, "text-input", "No comment");
 
-    // Store the comments as entities
+    // Store the comments as entities.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", comment);
 
@@ -48,11 +48,11 @@ public class PostCommentServlet extends HttpServlet {
 
 /**
   * Return the request parameter, or the default value if the parameter
-  * was not specified by the client
+  * was not specified by the client.
 */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
-    if (value == null) {
+    if (value == null || value.length() == 0) {
       return defaultValue;
     }
     return value;

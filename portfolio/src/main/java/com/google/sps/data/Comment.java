@@ -14,7 +14,7 @@
 
 package com.google.sps.data;
 
-/** Class that represents a comment added on the page */
+/** Represents a comment added on the page. */
 public final class Comment {
 
   private final long id;
@@ -23,5 +23,13 @@ public final class Comment {
   public Comment(long id, String text) {
     this.id = id;
     this.text = text;
+  }
+
+  public long getId() {
+      return id;
+  }
+
+  public String getText() {
+      return text;
   }
 }
