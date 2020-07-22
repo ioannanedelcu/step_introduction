@@ -52,7 +52,7 @@ public class PostCommentServlet extends HttpServlet {
 */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
-    if (value == null || value.length() == 0) {
+    if (value == null || value.isEmpty()) {
       return defaultValue;
     }
     return value;
