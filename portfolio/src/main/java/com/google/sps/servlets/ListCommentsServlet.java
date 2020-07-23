@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Responsible for listing comments. */
-@WebServlet("list-comments")
+@WebServlet("/list-comments")
 public class ListCommentsServlet extends HttpServlet {
 
   @Override
@@ -41,11 +41,19 @@ public class ListCommentsServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Extract query string parameter.
-    int commentsLimit = Integer.parseInt(request.getParameter("commentsNumber"));
-    // Show all.
-    if (commentsLimit == -1) {
-      commentsLimit = results.countEntities();
+  /**
+    * Extract query string parameter if it is specified.
+    * Otherwise, use a default value(2).
+  */
+    int commentsLimit;
+    try {
+      commentsLimit = Integer.parseInt(request.getParameter("commentsNumber"));
+      // Show all.
+      if (commentsLimit == -1) {
+        commentsLimit = results.countEntities();
+      }
+    } catch (Exception e) {
+        commentsLimit = 2;
     }
 
     List<Comment> comments = new ArrayList<>();

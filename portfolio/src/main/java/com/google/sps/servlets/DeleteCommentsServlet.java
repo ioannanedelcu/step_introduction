@@ -40,9 +40,7 @@ public class DeleteCommentsServlet extends HttpServlet {
     
     // Iterate through entities and delete them.
     for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      Key commentEntityKey = KeyFactory.createKey("Comment", id);
-      datastore.delete(commentEntityKey);
-    }
+      datastore.delete(entity.getKey());
+    }  
   }
 }
