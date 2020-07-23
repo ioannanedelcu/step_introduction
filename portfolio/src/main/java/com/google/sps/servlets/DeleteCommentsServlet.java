@@ -20,63 +20,27 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.gson.Gson;
-import com.google.sps.data.Comment;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Responsible for listing comments. */
-@WebServlet("/list-comments")
-public class ListCommentsServlet extends HttpServlet {
+/** Responsible for deleting comments. */
+@WebServlet("/delete-comments")
+public class DeleteCommentsServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment");
-    
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
-  /**
-    * Extract query string parameter if it is specified.
-    * Otherwise, use a default value(2).
-  */
-    int commentsLimit;
-    try {
-      commentsLimit = Integer.parseInt(request.getParameter("commentsNumber"));
-      // Show all.
-      if (commentsLimit == -1) {
-        commentsLimit = results.countEntities();
-      }
-    } catch (Exception e) {
-        commentsLimit = 2;
-    }
-
-    List<Comment> comments = new ArrayList<>();
-    int displayedComments = 0;
-
-    // Create Comment instances from entities and add them to the list.
+    
+    // Iterate through entities and delete them.
     for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      String text = (String) entity.getProperty("text");
-
-      Comment comment = new Comment(id, text);
-      comments.add(comment);
-      
-      displayedComments++;
-      if (displayedComments >= commentsLimit) {
-        break;
-      }
-    }
-
-    Gson gson = new Gson();
-
-    // Respond with the resulted list.
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
+      datastore.delete(entity.getKey());
+    }  
   }
 }

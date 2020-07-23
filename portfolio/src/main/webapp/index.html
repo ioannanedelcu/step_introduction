@@ -184,9 +184,18 @@
         <br/><br/>
         <input type="submit"/>
       </form>
-      <div id="container">
-        <h3>Other people comments:</h3>
+      <div id="previous-comments">
+        <h2>Other people comments:</h2>
+        <p><i>Choose how many comments to be displayed:</i>
+        <select id="select-number" name="select-number" onchange="loadComments()">
+          <option value="2">2
+          <option value="5">5
+          <option value="10">10
+          <option value="-1">All
+        </select>
+        <div id="container"></div>
       </div>
+      <button onclick="deleteAllComments()">DELETE ALL COMMENTS</button>
     </div>
 
     <div class="footer">
