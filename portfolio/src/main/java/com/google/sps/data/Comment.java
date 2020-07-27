@@ -19,10 +19,12 @@ public final class Comment {
 
   private final long id;
   private final String text;
+  private final String email;
 
-  public Comment(long id, String text) {
+  public Comment(long id, String text, String email) {
     this.id = id;
     this.text = text;
+    this.email = email;
   }
 
   public long getId() {
@@ -31,5 +33,9 @@ public final class Comment {
 
   public String getText() {
       return text;
+  }
+
+  public String getEmail() {
+      return email;
   }
 }

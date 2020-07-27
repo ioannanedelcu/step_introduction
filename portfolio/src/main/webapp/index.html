@@ -177,13 +177,15 @@
     </div>
 
     <div id="comments-section">
-      <h1>Comments section</h1>
-      <form action="/post-comment" method="POST">
-        <p>Add your comment here:</p>
-        <textarea name="text-input" rows="4" cols="70"></textarea>
-        <br/><br/>
-        <input type="submit"/>
-      </form>
+      <div id="submit-comment">
+        <h1>Comments section</h1>
+        <form id="comments-form" action="/post-comment" method="POST">
+          <p>Add your comment here:</p>
+          <textarea name="text-input" rows="4" cols="70"></textarea>
+          <br/><br/>
+          <input type="submit"/>
+        </form>
+      </div>
       <div id="previous-comments">
         <h2>Other people comments:</h2>
         <p><i>Choose how many comments to be displayed:</i>

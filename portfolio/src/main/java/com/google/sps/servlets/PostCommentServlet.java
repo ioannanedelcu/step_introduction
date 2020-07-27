@@ -17,6 +17,8 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.util.*;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -35,9 +37,14 @@ public class PostCommentServlet extends HttpServlet {
     // Get the input from the form.
     String comment = getParameter(request, "text-input", "No comment");
 
+    // Get user's email.
+    UserService userService = UserServiceFactory.getUserService();
+    String email = userService.getCurrentUser().getEmail();
+
     // Store the comments as entities.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", comment);
+    commentEntity.setProperty("email", email);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
