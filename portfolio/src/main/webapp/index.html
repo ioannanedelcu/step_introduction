@@ -24,6 +24,7 @@
       <a href="#comments-section">
           <button>Go to COMMENTS SECTION</button>
       </a>
+      <span id="logout-button"></span>
     </div>
 
     <div class="row">
@@ -181,7 +182,9 @@
         <h1>Comments section</h1>
         <form id="comments-form" action="/post-comment" method="POST">
           <p>Add your comment here:</p>
-          <textarea name="text-input" rows="4" cols="70"></textarea>
+          <textarea name="text-input" rows="4" cols="70"></textarea><br>
+          <label for="nickname">Choose a nickname: </label>
+          <input type="text" name="nickname">
           <br/><br/>
           <input type="submit"/>
         </form>

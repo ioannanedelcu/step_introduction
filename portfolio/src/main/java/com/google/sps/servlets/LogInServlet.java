@@ -16,6 +16,7 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,24 +26,43 @@ import javax.servlet.http.HttpServletResponse;
 //** Returns the login status of a user */
 @WebServlet("/login")
 public class LogInServlet extends HttpServlet {
+  static class LoginStatus {
+    boolean loggedIn;
+    String actionURL;
+
+    LoginStatus(boolean loggedIn, String actionURL) {
+      this.loggedIn = loggedIn;
+      this.actionURL = actionURL;
+    }
+    
+    boolean getLoggedIn() {
+      return loggedIn;
+    }
+
+    String getActionURL() {
+      return actionURL;
+    }
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("application/json;");
-    String jsonData = "";
+    LoginStatus loginStatus ;
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String urlToRedirectToAfterUserLogsOut = "/";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
       
-      jsonData += "{\"1\": " + "\"" + logoutUrl + "\"}";
+      loginStatus = new LoginStatus(true, logoutUrl);
     } else {
       String urlToRedirectToAfterUserLogsIn = "/";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
       
-      jsonData += "{\"0\": " + "\"" + loginUrl + "\"}";
-    }   
-    response.getWriter().println(jsonData);
+      loginStatus = new LoginStatus(false, loginUrl);
+    }
+
+    response.setContentType("application/json;");
+    Gson gson = new Gson();
+    response.getWriter().println(gson.toJson(loginStatus));
   }
 }

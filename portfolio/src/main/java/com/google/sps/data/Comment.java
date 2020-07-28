@@ -20,22 +20,28 @@ public final class Comment {
   private final long id;
   private final String text;
   private final String email;
+  private final String nickname;
 
-  public Comment(long id, String text, String email) {
+  public Comment(long id, String text, String email, String nickname) {
     this.id = id;
     this.text = text;
     this.email = email;
+    this.nickname = nickname;
   }
 
   public long getId() {
-      return id;
+    return id;
   }
 
   public String getText() {
-      return text;
+    return text;
   }
 
   public String getEmail() {
-      return email;
+    return email;
+  }
+
+  public String getNickname() {
+    return nickname;
   }
 }

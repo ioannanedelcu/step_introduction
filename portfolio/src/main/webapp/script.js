@@ -59,16 +59,16 @@ function createCommentElement(comment) {
   textElement.innerText = comment.text;
   
   // Add signature.
-  const userEmail = document.createElement('p');
-  userEmail.innerText = comment.email;
-  userEmail.style.textAlign = "right";
+  const nickname = document.createElement('p');
+  nickname.innerText = comment.nickname;
+  nickname.style.textAlign = "right";
   
   // Create a separation bar after a comment.
   const separationBar = document.createElement('hr');
 
   // Add text and bar to the comment element.
   commentElement.appendChild(textElement);
-  commentElement.appendChild(userEmail);
+  commentElement.appendChild(nickname);
   commentElement.appendChild(separationBar);
 
   return commentElement;
@@ -84,26 +84,28 @@ async function deleteAllComments() {
 async function checkLogIn () {
   const response = await fetch('/login');
   const loginInfo = await response.json();
-  const key = Object.keys(loginInfo)[0];
+  //const key = Object.keys(loginInfo)[0];
   
   // Add button for login/logout.
   const link = document.createElement('a');
-  link.href = loginInfo[key];
+  link.href = loginInfo.actionURL;
   const linkButton = document.createElement('button');
   linkButton.style.borderColor = "red";
   link.appendChild(linkButton);
 
   // User is logged in.
-  if (key == "1") {
+  if (loginInfo.loggedIn === true) {
     document.getElementById("comments-form").style.display = "block";
 
     linkButton.innerText = "LOGOUT";
-    document.getElementById("black-bar").appendChild(link);
+    document.getElementById("logout-button").innerHTML = "";
+    document.getElementById("logout-button").appendChild(link);
   // User is not logged in.
   } else {
     document.getElementById("comments-form").style.display = "none";
 
     linkButton.innerText = "Login to leave a comment";
+    document.getElementById("submit-comment").innerHTML = "";
     document.getElementById("submit-comment").appendChild(link);
   }
 }

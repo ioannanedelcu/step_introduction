@@ -34,17 +34,25 @@ public class PostCommentServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    // Check if user is logged in.
+    if(!userService.isUserLoggedIn()) {
+        System.out.println("ERROR:You are not logged in!");
+        response.sendRedirect("/index.html#comments-section");
+        return;
+    }
     // Get the input from the form.
     String comment = getParameter(request, "text-input", "No comment");
+    String nickname = getParameter(request, "nickname", "Anonym");
 
     // Get user's email.
-    UserService userService = UserServiceFactory.getUserService();
     String email = userService.getCurrentUser().getEmail();
 
     // Store the comments as entities.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", comment);
     commentEntity.setProperty("email", email);
+    commentEntity.setProperty("nickname", nickname);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
