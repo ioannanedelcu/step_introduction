@@ -34,6 +34,8 @@ function changeGridColumnsNumber(columns_number) {
 
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
+  checkLogIn();
+  
   var commentsNumber = document.getElementById("select-number").value;
   var url = `/list-comments?commentsNumber=${commentsNumber}`;
   const commentsContainer = document.getElementById('container');
@@ -56,11 +58,17 @@ function createCommentElement(comment) {
   const textElement = document.createElement('span');
   textElement.innerText = comment.text;
   
+  // Add signature.
+  const nickname = document.createElement('p');
+  nickname.innerText = comment.nickname;
+  nickname.style.textAlign = "right";
+  
   // Create a separation bar after a comment.
   const separationBar = document.createElement('hr');
 
   // Add text and bar to the comment element.
   commentElement.appendChild(textElement);
+  commentElement.appendChild(nickname);
   commentElement.appendChild(separationBar);
 
   return commentElement;
@@ -70,4 +78,34 @@ function createCommentElement(comment) {
 async function deleteAllComments() {
   await fetch('/delete-comments', {method: 'POST'});
   loadComments();
+}
+
+//** Checks login status and display HTML elements accordingly. */
+async function checkLogIn () {
+  const response = await fetch('/login');
+  const loginInfo = await response.json();
+  //const key = Object.keys(loginInfo)[0];
+  
+  // Add button for login/logout.
+  const link = document.createElement('a');
+  link.href = loginInfo.actionURL;
+  const linkButton = document.createElement('button');
+  linkButton.style.borderColor = "red";
+  link.appendChild(linkButton);
+
+  // User is logged in.
+  if (loginInfo.loggedIn === true) {
+    document.getElementById("comments-form").style.display = "block";
+
+    linkButton.innerText = "LOGOUT";
+    document.getElementById("logout-button").innerHTML = "";
+    document.getElementById("logout-button").appendChild(link);
+  // User is not logged in.
+  } else {
+    document.getElementById("comments-form").style.display = "none";
+
+    linkButton.innerText = "Login to leave a comment";
+    document.getElementById("submit-comment").innerHTML = "";
+    document.getElementById("submit-comment").appendChild(link);
+  }
 }

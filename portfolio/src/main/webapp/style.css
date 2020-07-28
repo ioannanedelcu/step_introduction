@@ -113,7 +113,7 @@ ul {
 
 /* Create two equal columns that sits next to each other */
 .grid-column {
-  flex: 50%;
+  flex: 25%;
   padding: 0 4px;
 }
 
