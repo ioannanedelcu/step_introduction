@@ -50,14 +50,10 @@ public class LogInServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String urlToRedirectToAfterUserLogsOut = "/";
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-      
+      String logoutUrl = userService.createLogoutURL("/");   
       loginStatus = new LoginStatus(true, logoutUrl);
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-      
+      String loginUrl = userService.createLoginURL("/");
       loginStatus = new LoginStatus(false, loginUrl);
     }
 

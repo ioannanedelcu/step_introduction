@@ -180,9 +180,12 @@
     <div id="comments-section">
       <div id="submit-comment">
         <h1>Comments section</h1>
-        <form id="comments-form" action="/post-comment" method="POST">
+        <form id="comments-form" method="POST" enctype="multipart/form-data">
           <p>Add your comment here:</p>
           <textarea name="text-input" rows="4" cols="70"></textarea><br>
+          <label for="uploaded-image">Upload an image(optional): </label>
+          <input type="file" id="uploaded-image" name="uploaded-image"
+          onchange="validateFileType()"><br><br>
           <label for="nickname">Choose a nickname: </label>
           <input type="text" name="nickname">
           <br/><br/>
