@@ -65,8 +65,9 @@ public class ListCommentsServlet extends HttpServlet {
       String text = (String) entity.getProperty("text");
       String email = (String) entity.getProperty("email");
       String nickname = (String) entity.getProperty("nickname");
+      String imageUrl = (String) entity.getProperty("imageUrl");
 
-      Comment comment = new Comment(id, text, email, nickname);
+      Comment comment = new Comment(id, text, email, nickname, imageUrl);
       comments.add(comment);
       
       displayedComments++;

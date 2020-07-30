@@ -21,12 +21,15 @@ public final class Comment {
   private final String text;
   private final String email;
   private final String nickname;
+  private final String imageUrl;
 
-  public Comment(long id, String text, String email, String nickname) {
+  public Comment(long id, String text, String email,
+   String nickname, String imageUrl) {
     this.id = id;
     this.text = text;
     this.email = email;
     this.nickname = nickname;
+    this.imageUrl = imageUrl;
   }
 
   public long getId() {
@@ -43,5 +46,9 @@ public final class Comment {
 
   public String getNickname() {
     return nickname;
+  }
+
+  public String getImageUrl() {
+      return imageUrl;
   }
 }

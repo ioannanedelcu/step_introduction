@@ -35,7 +35,8 @@ function changeGridColumnsNumber(columns_number) {
 /** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
   checkLogIn();
-  
+  fetchBlobstoreUrl();
+
   var commentsNumber = document.getElementById("select-number").value;
   var url = `/list-comments?commentsNumber=${commentsNumber}`;
   const commentsContainer = document.getElementById('container');
@@ -57,6 +58,10 @@ function createCommentElement(comment) {
 
   const textElement = document.createElement('span');
   textElement.innerText = comment.text;
+
+  // Add imaege.
+  const imageElement = document.createElement('img');
+  imageElement.src = comment.imageUrl;
   
   // Add signature.
   const nickname = document.createElement('p');
@@ -68,6 +73,10 @@ function createCommentElement(comment) {
 
   // Add text and bar to the comment element.
   commentElement.appendChild(textElement);
+  if(comment.imageUrl != null) {
+    commentElement.appendChild(document.createElement('br'));
+    commentElement.appendChild(imageElement);
+  }
   commentElement.appendChild(nickname);
   commentElement.appendChild(separationBar);
 
@@ -108,4 +117,27 @@ async function checkLogIn () {
     document.getElementById("submit-comment").innerHTML = "";
     document.getElementById("submit-comment").appendChild(link);
   }
+}
+
+// Allows the user to upload images only.
+function validateFileType(){
+    var uploadedFile = document.getElementById("uploaded-image");
+    var fileName = uploadedFile.value;
+    var idxDot = fileName.lastIndexOf(".") + 1;
+    var extension = fileName.substr(idxDot, fileName.length).toLowerCase();
+    if (!(extension === "jpg" || extension === "jpeg" || extension === "png")){
+      alert("Only jpg,jpeg and png files are allowed!");
+      uploadedFile.value = "";
+    }
+  }
+
+function fetchBlobstoreUrl() {
+  fetch('/blobstore-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const commentsForm = document.getElementById('comments-form');
+        commentsForm.action = imageUploadUrl;
+      });
 }
