@@ -59,7 +59,7 @@ function createCommentElement(comment) {
   const textElement = document.createElement('span');
   textElement.innerText = comment.text;
 
-  // Add imaege.
+  // Add image.
   const imageElement = document.createElement('img');
   imageElement.src = comment.imageUrl;
   

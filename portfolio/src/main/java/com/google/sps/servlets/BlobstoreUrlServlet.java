@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Responses with the URL that allows a user to upload a file to Blobstore. 
+ * Responds with the URL that allows a user to upload a file to Blobstore. 
  */
 @WebServlet("/blobstore-url")
 public class BlobstoreUrlServlet extends HttpServlet {
