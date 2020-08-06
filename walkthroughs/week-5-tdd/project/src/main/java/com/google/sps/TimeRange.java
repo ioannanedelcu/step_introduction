@@ -120,10 +120,6 @@ public final class TimeRange {
     return contains(this, point);
   }
 
-  public boolean isPartOf (TimeRange other) {
-      return (this.start >= other.start) && (this.end() <= other.end());
-  }
-
   @Override
   public boolean equals(Object other) {
     return other instanceof TimeRange && equals(this, (TimeRange) other);

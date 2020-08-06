@@ -18,6 +18,11 @@ import java.util.*;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    // If the duration is longer than a day, there should be no options.
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
+      return Arrays.asList();
+    }
+
     // Stores the time ranges of the events whose attendees are mandatory for the meeting.
     ArrayList<TimeRange>  relevantEventsTimeRanges = new ArrayList();
     // Stores the time ranges of the events whose attendees are optional for the meeting.
@@ -36,68 +41,65 @@ public final class FindMeetingQuery {
         if (!intersection.isEmpty()) {
           optionalEventsTimeRanges.add(e.getWhen());
           if(optionalAttendeesPerEvent.containsKey(e.getWhen())) {
-            optionalAttendeesPerEvent.replace(e.getWhen(), 
-              Math.max(optionalAttendeesPerEvent.get(e.getWhen()), intersection.size()));
+            optionalAttendeesPerEvent.replace(
+                e.getWhen(), 
+                Math.max(optionalAttendeesPerEvent.get(e.getWhen()), intersection.size()));
           } else {
-          optionalAttendeesPerEvent.put(e.getWhen(), intersection.size());
+            optionalAttendeesPerEvent.put(e.getWhen(), intersection.size());
           }
         }
       }
     }
 
-    // If the duration is longer than a day, there should be no options.
-    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
-      return Arrays.asList();
+    // Stores available slots for mandatory attendees.
+    Collection<TimeRange> mandatoryAvailableSlots = new ArrayList();
+      
+    // If the mandatory attendees are free, all day should be returned.
+    if (relevantEventsTimeRanges.isEmpty()) {
+      mandatoryAvailableSlots = Arrays.asList(TimeRange.WHOLE_DAY);
     } else {
-      Collection<TimeRange> mandatoryAvailableSlots = new ArrayList();
+      mandatoryAvailableSlots = findTimeSlots(relevantEventsTimeRanges, request.getDuration());
+    }
+
+    // No slots available for all mandatory attendees.
+    if (mandatoryAvailableSlots.isEmpty()) {
+      return Arrays.asList();
+    }
       
-      // If the mandatory attendees are free, all day should be returned.
-      if (relevantEventsTimeRanges.isEmpty()) {
-          mandatoryAvailableSlots = Arrays.asList(TimeRange.WHOLE_DAY);
-      } else {
-          mandatoryAvailableSlots = findTimeSlots(relevantEventsTimeRanges, request.getDuration());
-      }
+    // No optional attendees.
+    if (optionalEventsTimeRanges.isEmpty()) {
+      return mandatoryAvailableSlots;
+    }
+    
+    ArrayList<TimeRange> bestSlots = new ArrayList();
+    // Stores the minimum number of optional attendees who can't attend in a certain time range.
+    int bestScore = optionalEventsTimeRanges.size();
+    Collections.sort(optionalEventsTimeRanges, TimeRange.ORDER_BY_START);
 
-      // No slots available for all mandatory attendees.
-      if (mandatoryAvailableSlots.isEmpty()) {
-          return Arrays.asList();
-      }
-      
-      // No optional attendees.
-      if (optionalEventsTimeRanges.isEmpty()) {
-        return mandatoryAvailableSlots;
-      } else {
-        ArrayList<TimeRange> bestSlots = new ArrayList();
-        // Stores the minimum number of optional attendees who can't attend in a certain time range.
-        int bestScore = optionalEventsTimeRanges.size();
-        Collections.sort(optionalEventsTimeRanges, TimeRange.ORDER_BY_START);
+    for (TimeRange t : mandatoryAvailableSlots) {
+      // Split available slots in intervals of the duration of the requested meeting
+      // and calculate the "score" for each of them.
+      for (int k = t.start(); k < t.end(); k +=request.getDuration()) {
+        TimeRange currentTimeRange = TimeRange.fromStartDuration(k, (int)request.getDuration());
+        int score = getScore (currentTimeRange, optionalEventsTimeRanges,
+        optionalAttendeesPerEvent);
 
-        for (TimeRange t : mandatoryAvailableSlots) {
-          // Split available slots in intervals of the duration of the requested meeting
-          // and calculate the "score" for each of them.
-          for (int k = t.start(); k < t.end(); k +=request.getDuration()) {
-            TimeRange currentTimeRange = TimeRange.fromStartDuration(k, (int)request.getDuration());
-            int score = getScore (currentTimeRange, optionalEventsTimeRanges,
-              optionalAttendeesPerEvent);
-
-            // Update score and resulted list of slots.
-            if (score < bestScore) {
-              bestScore = score;
-              bestSlots.clear();
-              bestSlots.add(currentTimeRange);
-            } else {
-              if (bestScore == score) {
-                bestSlots.add(currentTimeRange);
-              }
-            }
+        // Update score and resulted list of slots.
+        if (score < bestScore) {
+          bestScore = score;
+          bestSlots.clear();
+          bestSlots.add(currentTimeRange);
+        } else {
+          if (bestScore == score) {
+            bestSlots.add(currentTimeRange);
           }
         }
-
-        // Put all of the splitted slots back together if it is possible.
-        bestSlots = combineSlots(bestSlots);
-        return bestSlots;
       }
     }
+
+    // Put all of the splitted slots back together if it is possible.
+    bestSlots = combineSlots(bestSlots);
+    return bestSlots;
   }
 
   // Computes the number of optional attendees who would miss the meeting when using current slot.
@@ -105,7 +107,7 @@ public final class FindMeetingQuery {
     HashMap<TimeRange, Integer> optionalAttendeesPerEvent) {
     int score = 0;
     for(TimeRange t : busySlots) {
-      if (currentTimeRange.isPartOf(t)) {
+      if (t.contains(currentTimeRange)) {
         score += optionalAttendeesPerEvent.get(t);
       }
     }
@@ -121,8 +123,11 @@ public final class FindMeetingQuery {
       for (int k = 1; k < separateSlots.size(); k++) {
         // Successive slots can be combined.
         if (separateSlots.get(k).start() == combinedSlots.get(combinedSlots.size() - 1).end()) {
-          combinedSlots.add(TimeRange.fromStartEnd(combinedSlots.get(combinedSlots.size() - 1).start(),
-          separateSlots.get(k).end(), false));
+          combinedSlots.add(
+              TimeRange.fromStartEnd(
+                  combinedSlots.get(combinedSlots.size() - 1).start(),
+                  separateSlots.get(k).end(),
+                  false));
           combinedSlots.remove(combinedSlots.size() - 2);
         } else {
           combinedSlots.add(separateSlots.get(k));
